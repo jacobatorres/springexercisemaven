@@ -24,7 +24,8 @@ public class CustomerController {
 	@GetMapping("/list")
 	public String listCustomers(Model theModel) {
 		
-		
+		System.out.println("musta list customers!");
+
 		List<Customer> theCustomers = service.getCustomers();
 		
 		theModel.addAttribute("customers", theCustomers);
@@ -50,6 +51,6 @@ public class CustomerController {
 		System.out.println(theCustomer.getName());
 		
 		service.saveCustomer(theCustomer);
-		return "list-customers";
+		return "redirect:/customer/list";
 	}
 }
