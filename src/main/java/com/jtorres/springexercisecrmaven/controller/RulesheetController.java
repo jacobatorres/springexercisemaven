@@ -39,6 +39,8 @@ public class RulesheetController {
 	
 	@GetMapping("/showFormAddRulesheet") 
 	public String showFormAddRulesheet(Model theModel) {
+		System.out.println("here at show for mrulesheet");
+		
 		Rulesheet therulesheet = new Rulesheet();
 		
 		theModel.addAttribute("rulesheet", therulesheet);
@@ -49,12 +51,15 @@ public class RulesheetController {
 	
 	
 	@PostMapping("/processRulesheet")
-	public String saveRulesheet(@Valid @ModelAttribute("rulesheet") Rulesheet therulesheet, 
+	public String saveRulesheet(@Valid Rulesheet therulesheet, 
 			BindingResult theBindingResult, Model theModel) {
-		
+		System.out.println("about to save rulesheet");
+
 		if (theBindingResult.hasErrors()) {
+			System.out.println("if statement");
 			return "rulesheet-form";
 		} else {
+			System.out.println("else statement");
 
 			// from the type info, parse the type and customerID
 			// we are assured that the customerID exists at this point
