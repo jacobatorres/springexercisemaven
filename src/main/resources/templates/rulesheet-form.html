@@ -23,17 +23,16 @@
 					<tr>
 						<td><label>File type: </label></td>
 						<td><input type = "text" th:field="*{filename}" /></td>	
-						<p th:if="${#fields.hasErrors('filename')}" th:errors="*{filename}">Name Error</p>
+						<td th:if="${#fields.hasErrors('filename')}" th:errors="*{filename}">Name Error</td>
 					</tr>
 					
 					<tr>						
 						<td><label>File content: </label></td>
 						<td><input type = "text" th:field="*{filecontent}" /></td>	
-						<p th:if="${#fields.hasErrors('filecontent')}" th:errors="*{filecontent}">Content Error</p>
+						<td th:if="${#fields.hasErrors('filecontent')}" th:errors="*{filecontent}">Content Error</td>
 					</tr>
 										
 					<tr>
-						<td><label></label></td>
 						<td><input type = "submit" value = "Save"/></td>
 					</tr>
 				</tbody>

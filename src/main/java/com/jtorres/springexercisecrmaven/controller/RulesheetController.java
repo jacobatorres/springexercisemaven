@@ -39,7 +39,7 @@ public class RulesheetController {
 	
 	@GetMapping("/showFormAddRulesheet") 
 	public String showFormAddRulesheet(Model theModel) {
-		System.out.println("here at show for mrulesheet");
+		System.out.println("[/showFormAddRulesheet GET] Displaying the rulesheet form");
 		
 		Rulesheet therulesheet = new Rulesheet();
 		
@@ -51,36 +51,38 @@ public class RulesheetController {
 	
 	
 	@PostMapping("/processRulesheet")
-	public String saveRulesheet(@Valid Rulesheet therulesheet, 
+	public String saveRulesheet(@ModelAttribute("rulesheet") @Valid Rulesheet rulesheet, 
 			BindingResult theBindingResult, Model theModel) {
-		System.out.println("about to save rulesheet");
+		
+		System.out.println("[/processRulesheet POST ] Saving the rulesheet");
+		System.out.println(theModel.asMap());
 
 		if (theBindingResult.hasErrors()) {
-			System.out.println("if statement");
+			System.out.println("Determined errors!");
 			return "rulesheet-form";
 		} else {
-			System.out.println("else statement");
+			System.out.println("No Errors apparently! Not Good!");
 
 			// from the type info, parse the type and customerID
 			// we are assured that the customerID exists at this point
 			// filecontent is already saved
 			
-			String type_id = therulesheet.getFilename();
+			String type_id = rulesheet.getFilename();
 			String[] split_result = type_id.split("_");
 			
 			String type = split_result[0];
 			int customer_id = Integer.parseInt(split_result[1]);
 			
 			System.out.println("the rulesheet model before:");
-			System.out.println(therulesheet.toString());
+			System.out.println(rulesheet.toString());
 			
-			therulesheet.setType(type);
-			therulesheet.setcustomerId(customer_id);
+			rulesheet.setType(type);
+			rulesheet.setcustomerId(customer_id);
 			
 			System.out.println("the rulesheet model after:");
-			System.out.println(therulesheet.toString());
+			System.out.println(rulesheet.toString());
 
-			service.saveRulesheet(therulesheet);
+			service.saveRulesheet(rulesheet);
 		
 			return "redirect:/rulesheet/list";
 			
