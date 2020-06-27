@@ -78,6 +78,7 @@ public class RulesheetController {
 			
 			rulesheet.setType(type);
 			rulesheet.setcustomerId(customer_id);
+			rulesheet.setId(0); // save rulesheet
 			
 			System.out.println("the rulesheet model after:");
 			System.out.println(rulesheet.toString());

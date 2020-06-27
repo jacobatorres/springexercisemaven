@@ -16,7 +16,7 @@ public interface CService {
 
 	public List<Rulesheet> getRulesheets();
 
-	public void saveRulesheet(@Valid Rulesheet therulesheet);
+	public void saveRulesheet(Rulesheet therulesheet);
 	
 	
 }

@@ -42,7 +42,7 @@ public class RulesheetDAOImpl implements RulesheetDAO {
 	}
 
 	@Override
-	public void saveRulesheet(@Valid Rulesheet therulesheet) {
+	public void saveRulesheet(Rulesheet therulesheet) {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
 		// if id=0, save. else, update

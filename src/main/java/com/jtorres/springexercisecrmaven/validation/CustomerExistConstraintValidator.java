@@ -30,6 +30,7 @@ public class CustomerExistConstraintValidator
 		// get the customerid part
 		// fetch the ids from the db
 		// check if that value exists there...
+		
 				
 		String[] split_result = userInput.split("_");
 		
