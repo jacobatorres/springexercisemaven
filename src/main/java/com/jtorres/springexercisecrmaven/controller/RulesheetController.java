@@ -36,6 +36,10 @@ public class RulesheetController {
 		return "list-rulesheet";
 	}
 	
+	@GetMapping("/uploadfileform")
+	public String showUploadForm() {
+		return "file-upload-form";
+	}
 	
 	@GetMapping("/showFormAddRulesheet") 
 	public String showFormAddRulesheet(Model theModel) {
