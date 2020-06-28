@@ -32,9 +32,9 @@ public class Rulesheet {
 	
 	
 	
-	@Size(min=1, message="type name not be blank")
-	@Pattern(regexp="^[a-zA-z0-9]+_[0-9]+", message = "must look like ruleA_352")
-	@DoesCustomerExist(message = "customer does not exist")
+//	@Size(min=1, message="type name not be blank")
+//	@Pattern(regexp="^[a-zA-z0-9]+_[0-9]+", message = "must look like ruleA_352")
+//	@DoesCustomerExist(message = "customer does not exist")
 	@Transient
 	private String filename;
 	
@@ -48,9 +48,9 @@ public class Rulesheet {
 	
 
 	
-	@Size(min=1, message="file content not be blank")
-	@Column(name = "filecontent")
-	private String filecontent;
+//	@Size(min=1, message="file content not be blank")
+	@Column(name = "filecontent", columnDefinition="BLOB")
+	private byte[] filecontent;
 	
 
 
@@ -98,11 +98,13 @@ public class Rulesheet {
 		this.createDate = createDate;
 	}
 
-	public String getFilecontent() {
+
+	public byte[] getFilecontent() {
 		return filecontent;
 	}
 
-	public void setFilecontent(String filecontent) {
+
+	public void setFilecontent(byte[] filecontent) {
 		this.filecontent = filecontent;
 	}
 
