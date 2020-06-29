@@ -97,10 +97,6 @@ public class RulesheetController {
 				rulesheet.setType(type);
 				rulesheet.setcustomerId(customer_id);
 				rulesheet.setFilecontent(file.getBytes());
-
-				System.out.println("the rulesheet:");
-				System.out.println(rulesheet.toString());
-				
 				rulesheet.setId(0); // save new rulesheet, not update 
 				
 				service.saveRulesheet(rulesheet);
