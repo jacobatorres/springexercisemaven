@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.jtorres.springexercisecrmaven.entity.Customer;
 import com.jtorres.springexercisecrmaven.entity.Rulesheet;
 import com.jtorres.springexercisecrmaven.filepayload.UploadFileResponse;
 import com.jtorres.springexercisecrmaven.service.CService;
+import com.jtorres.springexercisecrmaven.validation.FilenameValidation;
 
 @Controller
 @RequestMapping("/rulesheet")
@@ -56,70 +58,70 @@ public class RulesheetController {
 	
 	
 	@PostMapping("/processRulesheet")
-	public String saveRulesheet(@RequestParam("file") MultipartFile file) {
+	public Rulesheet saveRulesheet(@RequestParam("file") MultipartFile file) {
 		
 		
 		// we will receive the file and save it
 		
-		
-		// store the file
-		// send a response saying it's good
-		try {
-			Rulesheet rulesheet = new Rulesheet();
+		// check if the file name is valid
+		// if so, enter the try clause for saving
+		Rulesheet rulesheet = new Rulesheet();
+
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		System.out.println(fileName);
+	
+		// check if filename is valid
+		FilenameValidation fv = new FilenameValidation();
+	
+		if (fv.IsRegexFilenameOk(fileName)) {
+			try {
+
+				// at this point, we can assume the data is ok
+				
+				
+				
+				// extract type, customerid, filecontent
+				fileName = fileName.replace(".txt", "");
+				String[] split_result = fileName.split("_");
+				String type = split_result[0];
+
+				int customer_id = Integer.parseInt(split_result[1]);
+				
+				
+				if(!fv.doesCustomerExist(customer_id, service.getCustomers())) {
+					System.out.println("customer no exist");
+					return rulesheet;
+				}
+
+				System.out.println("customer exists");
+				rulesheet.setType(type);
+				rulesheet.setcustomerId(customer_id);
+				rulesheet.setFilecontent(file.getBytes());
+
+				System.out.println("the rulesheet:");
+				System.out.println(rulesheet.toString());
+				
+				rulesheet.setId(0); // save new rulesheet, not update 
+				
+				service.saveRulesheet(rulesheet);
+				return rulesheet;
 
 
-			// extract type, customerid, filecontent
-			String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-			fileName = fileName.replace(".txt", "");
-			
-			String[] split_result = fileName.split("_");
-			String type = split_result[0];
-			int customer_id = Integer.parseInt(split_result[1]);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return rulesheet;
 
-			rulesheet.setType(type);
-			rulesheet.setcustomerId(customer_id);
-			rulesheet.setFilecontent(file.getBytes());
+			}
 
-			System.out.println("the rulesheet:");
-			System.out.println(rulesheet.toString());
-			
-			rulesheet.setId(0); // save new rulesheet, not update 
-			
-			service.saveRulesheet(rulesheet);
+		} else {
+			// invalid file name
+			System.out.println("not ok");
+			return rulesheet;
 
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-
 		
-
-		
-//		
-//		String type_id = rulesheet.getFilename();
-//		String[] split_result = type_id.split("_");
-//		
-//		String type = split_result[0];
-//		int customer_id = Integer.parseInt(split_result[1]);
-//		
-//		System.out.println("the rulesheet model before:");
-//		System.out.println(rulesheet.toString());
-//		
-//		rulesheet.setType(type);
-//		rulesheet.setcustomerId(customer_id);
-//		rulesheet.setId(0); // save rulesheet
-//		
-//		System.out.println("the rulesheet model after:");
-//		System.out.println(rulesheet.toString());
-//
-//		service.saveRulesheet(rulesheet);
-//	
-		return "redirect:/rulesheet/list";
-		
-
-		
-		
+	
 	}
 	
 	
