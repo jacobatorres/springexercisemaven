@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jtorres.springexercisecrmaven.entity.Customer;
@@ -19,7 +22,7 @@ import com.jtorres.springexercisecrmaven.filepayload.UploadFileResponse;
 import com.jtorres.springexercisecrmaven.service.CService;
 import com.jtorres.springexercisecrmaven.validation.FilenameValidation;
 
-@Controller
+@RestController
 @RequestMapping("/rulesheet")
 public class RulesheetController {
 
@@ -58,7 +61,7 @@ public class RulesheetController {
 	
 	
 	@PostMapping("/processRulesheet")
-	public Rulesheet saveRulesheet(@RequestParam("file") MultipartFile file) {
+	public ResponseEntity<String> saveRulesheet(@RequestParam("file") MultipartFile file) {
 		
 		
 		// we will receive the file and save it
@@ -68,7 +71,6 @@ public class RulesheetController {
 		Rulesheet rulesheet = new Rulesheet();
 
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		System.out.println(fileName);
 	
 		// check if filename is valid
 		FilenameValidation fv = new FilenameValidation();
@@ -89,31 +91,28 @@ public class RulesheetController {
 				
 				
 				if(!fv.doesCustomerExist(customer_id, service.getCustomers())) {
-					System.out.println("customer no exist");
-					return rulesheet;
+					return new ResponseEntity<>("Failed: Customer in file name does not exist", HttpStatus.OK);
 				}
 
-				System.out.println("customer exists");
 				rulesheet.setType(type);
 				rulesheet.setcustomerId(customer_id);
 				rulesheet.setFilecontent(file.getBytes());
 				rulesheet.setId(0); // save new rulesheet, not update 
 				
 				service.saveRulesheet(rulesheet);
-				return rulesheet;
+				return new ResponseEntity<>("Rulesheet " + fileName +  ".txt uploaded!", HttpStatus.OK);
 
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				return rulesheet;
+				return new ResponseEntity<>("Failed: entered IOException Catch", HttpStatus.OK);
 
 			}
 
 		} else {
 			// invalid file name
-			System.out.println("not ok");
-			return rulesheet;
+			return new ResponseEntity<>("Failed: Rule does not look like ruleA_12.txt", HttpStatus.OK);
 
 		}
 		
