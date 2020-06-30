@@ -15,25 +15,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jtorres.springexercisecrmaven.entity.Customer;
 import com.jtorres.springexercisecrmaven.entity.Rulesheet;
-import com.jtorres.springexercisecrmaven.filepayload.UploadFileResponse;
 import com.jtorres.springexercisecrmaven.service.CService;
 import com.jtorres.springexercisecrmaven.validation.CustomerValidation;
 
 @RestController
-@RequestMapping("/rulesheet")
 public class RulesheetController {
 
 	@Autowired
 	private CService service;
 	
-	
-	@PostMapping("/rulesheet")
+
+	@PostMapping(value = "/rulesheet")
 	public ResponseEntity<String> saveRulesheet(@RequestParam("file") MultipartFile file) {
-		
-		
+		System.out.println("hereees");
+
+
 		// we will receive the file and save it
 		
 		// check if the file name is valid
