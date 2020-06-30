@@ -3,54 +3,69 @@ package com.jtorres.springexercisecrmaven.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.jtorres.springexercisecrmaven.entity.Customer;
 import com.jtorres.springexercisecrmaven.service.CService;
+import com.jtorres.springexercisecrmaven.validation.CustomerValidation;
 
 
-@Controller
-@RequestMapping("/customer")
+@RestController
 public class CustomerController {
 	
 	@Autowired
 	private CService service;
 
-	@GetMapping("/list")
-	public String listCustomers(Model theModel) {
-		
-		System.out.println("musta list customers!");
+	
+	// get 1 customer
+	@GetMapping(path="/customer/{id}")
+	public ResponseEntity<String> getOneCustomer(@PathVariable("id") int cid) {
 
-		List<Customer> theCustomers = service.getCustomers();
+		System.out.println("CustomerID: " + cid);
 		
-		theModel.addAttribute("customers", theCustomers);
+		// get all customers
+		// iterate through one of them
+		// return if true
 		
+		CustomerValidation cv = new CustomerValidation();
 		
-		return "list-customers";
+		if (cv.doesCustomerExist(cid, service.getCustomers())){
+			return new ResponseEntity<>("Customer exists!", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Failed: Customer does not exist", HttpStatus.BAD_REQUEST);
+		}
+
 	}
 	
-	@GetMapping("/showFormForAdd") 
-	public String ShowAddCustomerPage(Model theModel) {
-			
-		Customer thecustomer = new Customer();
+	// get all customers
+	@GetMapping("/customers")
+	public List<Customer> getCustomers(){
+
 		
-		theModel.addAttribute("customer", thecustomer);
-		
-		return "customer-form";
+		return service.getCustomers();		
 	}
 	
-	@PostMapping("/saveCustomer")
-	public String saveCustomer(@ModelAttribute("customer") Customer theCustomer) {
-		System.out.println("musta");
+	@PostMapping("/customer")
+	public ResponseEntity<String> saveCustomer(@RequestParam("name") String name) {
+
+		Customer newCustomer = new Customer();
 		
-		System.out.println(theCustomer.getName());
+		newCustomer.setId(0); // new record
+		newCustomer.setName(name);
 		
-		service.saveCustomer(theCustomer);
-		return "redirect:/customer/list";
+		service.saveCustomer(newCustomer);
+		System.out.println("customer has been saved: " + name);
+
+		return new ResponseEntity<>("Customer " + name + " saved", HttpStatus.OK);
 	}
 }

@@ -20,7 +20,7 @@ import com.jtorres.springexercisecrmaven.entity.Customer;
 import com.jtorres.springexercisecrmaven.entity.Rulesheet;
 import com.jtorres.springexercisecrmaven.filepayload.UploadFileResponse;
 import com.jtorres.springexercisecrmaven.service.CService;
-import com.jtorres.springexercisecrmaven.validation.FilenameValidation;
+import com.jtorres.springexercisecrmaven.validation.CustomerValidation;
 
 @RestController
 @RequestMapping("/rulesheet")
@@ -29,38 +29,8 @@ public class RulesheetController {
 	@Autowired
 	private CService service;
 	
-	@GetMapping("/list")
-	public String showPage(Model theModel) {
-		
-		// get rulesheets
-		List<Rulesheet> rulesheets = service.getRulesheets();
-		
-		// add to model
-		
-		theModel.addAttribute("rulesheets", rulesheets);
-		
-		return "list-rulesheet";
-	}
 	
-	@GetMapping("/uploadfileform")
-	public String showUploadForm() {
-		return "file-upload-form";
-	}
-	 
-	@GetMapping("/showFormAddRulesheet") 
-	public String showFormAddRulesheet(Model theModel) {
-		System.out.println("[/showFormAddRulesheet GET] Displaying the rulesheet form");
-		
-		Rulesheet therulesheet = new Rulesheet();
-		
-		theModel.addAttribute("rulesheet", therulesheet);
-
-
-		return "rulesheet-form";
-	}
-	
-	
-	@PostMapping("/processRulesheet")
+	@PostMapping("/rulesheet")
 	public ResponseEntity<String> saveRulesheet(@RequestParam("file") MultipartFile file) {
 		
 		
@@ -73,7 +43,7 @@ public class RulesheetController {
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 	
 		// check if filename is valid
-		FilenameValidation fv = new FilenameValidation();
+		CustomerValidation fv = new CustomerValidation();
 	
 		if (fv.IsRegexFilenameOk(fileName)) {
 			try {

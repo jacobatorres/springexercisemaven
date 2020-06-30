@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 import com.jtorres.springexercisecrmaven.entity.Customer;
 
-public class FilenameValidation {
+public class CustomerValidation {
 	
 	public boolean IsRegexFilenameOk(String filename) {
 		
