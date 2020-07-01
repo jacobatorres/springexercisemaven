@@ -49,6 +49,14 @@ public class ServiceImpl implements CService {
 		rulesheetDAO.saveRulesheet(therulesheet);
 		
 	}
+
+	@Override
+	@Transactional
+	public void deleteCustomer(Customer theCustomer) {
+		// TODO Auto-generated method stub
+		customerDAO.deleteCustomer(theCustomer);
+
+	}
 	
 	
 

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -67,5 +68,37 @@ public class CustomerController {
 		System.out.println("customer has been saved: " + name);
 
 		return new ResponseEntity<>("Customer " + name + " saved", HttpStatus.OK);
+	}
+	
+	@DeleteMapping(path="/customer/{id}")
+	public ResponseEntity<String> deleteCustomer(@PathVariable("id") int cid){
+		
+		// get the customer in the db
+		// delete that customer
+		
+		CustomerValidation cv = new CustomerValidation();
+		
+		System.out.println("entered here");
+		if (cv.doesCustomerExist(cid, service.getCustomers())){
+			// we're guaranteed it exists
+			System.out.println("entered here yii");
+			for (Customer c : service.getCustomers()) {
+				if (c.getId() == cid) {
+					// match!
+					System.out.println("coup de grace");
+
+					service.deleteCustomer(c);
+					return new ResponseEntity<>("Customer deleted!", HttpStatus.OK);
+				}
+			}
+			
+			
+		} else {
+			return new ResponseEntity<>("Failed: Customer does not exist", HttpStatus.BAD_REQUEST);
+		}
+		return null;
+		
+		
+		
 	}
 }

@@ -18,5 +18,6 @@ public interface CService {
 
 	public void saveRulesheet(Rulesheet therulesheet);
 	
-	
+	public void deleteCustomer(Customer theCustomer);
+
 }
