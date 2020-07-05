@@ -28,6 +28,12 @@ public class RulesheetController {
 	@Autowired
 	private CService service;
 	
+	// get all rulesheets
+	@GetMapping("/rulesheets")
+	public List<Rulesheet> getRulesheets(){
+		return service.getRulesheets();
+	}
+	
 
 	@PostMapping(value = "/rulesheet")
 	public ResponseEntity<String> saveRulesheet(@RequestParam("file") MultipartFile file) {
