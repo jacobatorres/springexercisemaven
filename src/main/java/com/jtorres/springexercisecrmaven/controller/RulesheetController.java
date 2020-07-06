@@ -1,6 +1,7 @@
 package com.jtorres.springexercisecrmaven.controller;
 
 import java.io.IOException;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,10 @@ import com.jtorres.springexercisecrmaven.entity.Rulesheet;
 import com.jtorres.springexercisecrmaven.service.CService;
 import com.jtorres.springexercisecrmaven.validation.CustomerValidation;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 @RestController
+@CrossOrigin
 public class RulesheetController {
 
 	@Autowired
