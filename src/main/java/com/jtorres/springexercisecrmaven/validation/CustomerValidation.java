@@ -19,7 +19,7 @@ public class CustomerValidation {
 		System.out.println("it ends in txt congrats");
 	    filename = filename.replace(".txt", "");
 	    
-		boolean isMatchingConvention = Pattern.matches("^[a-zA-z0-9]+_[0-9]+", filename);
+		boolean isMatchingConvention = Pattern.matches(".+\\/*[a-zA-z0-9]+_[0-9]+", filename);
 
 	    if (isMatchingConvention == false) {
 	    	return false;

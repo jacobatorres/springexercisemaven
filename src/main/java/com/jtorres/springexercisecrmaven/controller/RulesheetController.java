@@ -51,6 +51,11 @@ public class RulesheetController {
 		Rulesheet rulesheet = new Rulesheet();
 
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		
+		// if the directory name is included, remove it 
+		if (fileName.contains("/")) {
+			fileName = fileName.substring(fileName.indexOf("/") + 1);
+		}
 	
 		// check if filename is valid
 		CustomerValidation fv = new CustomerValidation();
@@ -64,6 +69,7 @@ public class RulesheetController {
 				
 				// extract type, customerid, filecontent
 				fileName = fileName.replace(".txt", "");
+				System.out.println(fileName);
 				String[] split_result = fileName.split("_");
 				String type = split_result[0];
 
