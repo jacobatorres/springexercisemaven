@@ -44,7 +44,7 @@ public class Rulesheet {
 	
 
 	@Column(name = "customer_id")
-	private int customerId;
+	private int cid;
 	
 
 	
@@ -64,15 +64,17 @@ public class Rulesheet {
 	}
 
 
-	@JsonIgnore
-	public int getcustomerId() {
-		return customerId;
+
+	public int getCid() {
+		return cid;
 	}
 
 
-	public void setcustomerId(int customerId) {
-		this.customerId = customerId;
+
+	public void setCid(int cid) {
+		this.cid = cid;
 	}
+
 
 
 	public int getId() {
@@ -112,7 +114,7 @@ public class Rulesheet {
 
 	@Override
 	public String toString() {
-		return "Rulesheet [id=" + id + ", filename=" + filename + ", type=" + type + ", customerId=" + customerId
+		return "Rulesheet [id=" + id + ", filename=" + filename + ", type=" + type + ", customerId=" + cid
 				+ ", filecontent=" + filecontent + ", createDate=" + createDate + "]";
 	}
 
@@ -127,14 +129,6 @@ public class Rulesheet {
 	}
 
 
-	public int getCustomerId() {
-		return customerId;
-	}
-
-
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
 	
 	
 	

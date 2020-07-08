@@ -77,7 +77,7 @@ public class RulesheetController {
 				
 				
 				if(!fv.doesCustomerExist(customer_id, service.getCustomers())) {
-					return new ResponseEntity<>("Failed: Customer in file name does not exist", HttpStatus.OK);
+					return new ResponseEntity<>("Cannot upload " +  fileName + ": Customer in file name does not exist", HttpStatus.OK);
 				}
 
 				rulesheet.setType(type);
@@ -92,13 +92,13 @@ public class RulesheetController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				return new ResponseEntity<>("Failed: entered IOException Catch", HttpStatus.OK);
+				return new ResponseEntity<>("Cannot upload " + fileName + ": entered IOException Catch", HttpStatus.OK);
 
 			}
 
 		} else {
 			// invalid file name
-			return new ResponseEntity<>("Failed: Rule does not look like ruleA_12.txt", HttpStatus.OK);
+			return new ResponseEntity<>("Cannot upload + " + fileName + ": Rule does not look like ruleA_12.txt", HttpStatus.OK);
 
 		}
 		
