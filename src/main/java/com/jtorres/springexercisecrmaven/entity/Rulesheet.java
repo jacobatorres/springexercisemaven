@@ -102,8 +102,8 @@ public class Rulesheet {
 	}
 
 
-	public byte[] getFilecontent() {
-		return filecontent;
+	public String getFilecontent() {
+		return new String(this.filecontent);
 	}
 
 

@@ -81,7 +81,7 @@ public class RulesheetController {
 				}
 
 				rulesheet.setType(type);
-				rulesheet.setcustomerId(customer_id);
+				rulesheet.setCid(customer_id);
 				rulesheet.setFilecontent(file.getBytes());
 				rulesheet.setId(0); // save new rulesheet, not update 
 				

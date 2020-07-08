@@ -28,7 +28,7 @@ public class RulesheetDAOImpl implements RulesheetDAO {
 		try {
 			
 			
-			Query<Rulesheet> query = currentSession.createQuery("from Rulesheet", Rulesheet.class);
+			Query<Rulesheet> query = currentSession.createQuery("from Rulesheet order by cid", Rulesheet.class);
 			
 			List<Rulesheet> rulesheets = query.getResultList();
 			
