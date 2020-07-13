@@ -92,15 +92,19 @@ public class CustomerController {
 					System.out.println("coup de grace");
 
 					service.deleteCustomer(c);
+					System.out.println("bye bye po");
+
 					return new ResponseEntity<>("Customer deleted!", HttpStatus.OK);
 				}
 			}
 			
 			
 		} else {
+			System.out.println("wrong");
 			return new ResponseEntity<>("Failed: Customer does not exist", HttpStatus.BAD_REQUEST);
 		}
-		return null;
+		System.out.println("bye");
+		return new ResponseEntity<>("Goodbye!", HttpStatus.OK);
 		
 		
 		
