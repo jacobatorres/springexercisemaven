@@ -72,8 +72,8 @@ public class CustomerController {
 		return new ResponseEntity<>("Customer " + name + " saved", HttpStatus.OK);
 	}
 	
-	@PostMapping(path="/customer/{cid}")
-	public ResponseEntity<String> deleteCustomer(@PathVariable("cid") int cid){
+	@PostMapping(path="/customer")
+	public ResponseEntity<String> deleteCustomer(@RequestParam("id") int cid){
 		
 		// get the customer in the db
 		// delete that customer
