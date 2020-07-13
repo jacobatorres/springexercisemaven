@@ -13,7 +13,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.jtorres.springexercisecrmaven.entity.Customer;
 import com.jtorres.springexercisecrmaven.entity.Rulesheet;
 import com.jtorres.springexercisecrmaven.security.AuthenticationRequest;
 import com.jtorres.springexercisecrmaven.security.AuthenticationResponse;
@@ -47,6 +50,8 @@ public class RulesheetController {
 	@Autowired
 	private JwtUtil jwtTokenUtil;
 	
+	
+
 	// get all rulesheets
 	@GetMapping("/rulesheets")
 	public List<Rulesheet> getRulesheets(){
@@ -125,6 +130,7 @@ public class RulesheetController {
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authRequest) throws Exception {
 		// authRequest should have username and password
 		// use authManager to authenticate
+		System.out.println("attemp!");
 		try {
 			
 			authManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));

@@ -11,6 +11,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 @EnableWebSecurity
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
@@ -28,12 +29,17 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		http.csrf().disable()
+		
+	   // http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
+
+		http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+		.and().csrf().disable()
 		.authorizeRequests().antMatchers("/authenticate").permitAll().anyRequest().authenticated()
 		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // JWT are stateless, no need for a session; no state, only tokens
 		
-		
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class); // call jwtRequestFilter before UsernamePasswordAuthenticationFilter
+
+		
 	}
 	
 	@Override
