@@ -6,12 +6,15 @@ import java.util.Map;
 import java.util.function.Function;
 
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 // all things JWT related
+// client sends in the username password. If creds are valid, we use the methods here to generate token
+@Service
 public class JwtUtil {
 	
 	private String SECRET_KEY = "sikreto";

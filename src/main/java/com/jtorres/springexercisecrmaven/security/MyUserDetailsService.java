@@ -1,4 +1,4 @@
-package com.jtorres.springexercisecrmaven.service;
+package com.jtorres.springexercisecrmaven.security;
 
 import java.util.ArrayList;
 
