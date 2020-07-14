@@ -45,7 +45,7 @@ public class Customer {
 
 
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name="customer_id")
+	@JoinColumn(name="id")
 	private List<Rulesheet> rulesheets;
 
 	public Date getCreateDate() {
