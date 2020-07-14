@@ -83,27 +83,34 @@ public class CustomerController {
 		CustomerValidation cv = new CustomerValidation();
 		
 		System.out.println("entered here");
-		if (cv.doesCustomerExist(cid, service.getCustomers())){
-			// we're guaranteed it exists
-			System.out.println("entered here yii");
-			for (Customer c : service.getCustomers()) {
-				if (c.getId() == cid) {
-					// match!
-					System.out.println("coup de grace");
+		
+		try {
+			if (cv.doesCustomerExist(cid, service.getCustomers())){
+				// we're guaranteed it exists
+				System.out.println("entered here yii");
+				for (Customer c : service.getCustomers()) {
+					if (c.getId() == cid) {
+						// match!
+						System.out.println("coup de grace");
+						service.deleteCustomer(c);
+						System.out.println("bye bye po");
 
-					service.deleteCustomer(c);
-					System.out.println("bye bye po");
-
-					return new ResponseEntity<>("Customer deleted!", HttpStatus.OK);
+						return new ResponseEntity<>("Customer deleted!", HttpStatus.OK);
+					}
 				}
+				
+				
+			} else {
+				System.out.println("wrong");
+				return new ResponseEntity<>("Failed: Customer does not exist", HttpStatus.BAD_REQUEST);
 			}
+			System.out.println("bye");
+
+		} catch (Exception e) {
+			e.printStackTrace();
 			
-			
-		} else {
-			System.out.println("wrong");
-			return new ResponseEntity<>("Failed: Customer does not exist", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(e.toString(), HttpStatus.OK);
 		}
-		System.out.println("bye");
 		return new ResponseEntity<>("Goodbye!", HttpStatus.OK);
 		
 		
