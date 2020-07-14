@@ -44,7 +44,7 @@ public class Customer {
 	private Date createDate;
 
 
-	@OneToMany(fetch=FetchType.LAZY,  cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="customer_id")
 	private List<Rulesheet> rulesheets;
 
