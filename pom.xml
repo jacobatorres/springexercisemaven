@@ -50,7 +50,7 @@
 		<dependency>
 		  <groupId>org.springframework</groupId>
 		  <artifactId>spring</artifactId>
-		  <version>5.2.7.RELEASE</version>
+		  <version>5.2.18.RELEASE</version>
 		  <type>pom</type>
 		</dependency>
 
